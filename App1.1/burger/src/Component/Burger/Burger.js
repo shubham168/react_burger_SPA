@@ -11,7 +11,7 @@ const burger = (props) => {
       }); // [,]
     })
     .reduce((arr, el) => {
-      return arr.concat(el);
+      return arr.concat(el);  //remove inner arrays into outer array as single elements (just like spreat operator)
     }, []);
 
     if(transformedIngredients.length === 0 )
