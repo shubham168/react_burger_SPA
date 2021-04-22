@@ -9,8 +9,11 @@ class Layout extends Component {
     showSideDrawer: false,
   };
   sideDrawerClosedHandler = () => {
-    this.setState({ showSideDrawer: false });
-  };
+    this.setState((prevState) =>  {
+      console.log(prevState.showSideDrawer);
+      return { showSideDrawer: !prevState.showSideDrawer };
+    });
+    };
   sideDrawerToogleHandler = () => {
     this.setState((prevState) => {
       return { showSideDrawer: !prevState.showSideDrawer };
