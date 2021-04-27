@@ -1,4 +1,4 @@
-import * as actionTypes from "./actions";
+import * as actionTypes from "../actions/actionTypes";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -43,7 +43,7 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-  return state;
+
 };
 
 export default reducer;

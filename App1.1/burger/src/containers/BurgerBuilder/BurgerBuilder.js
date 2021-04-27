@@ -7,10 +7,8 @@ import OrderSummary from "../../Component/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios_orders";
 import Spinner from "../../Component/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import * as actionTypes from "../../store/actions";
+import * as burgerBuilderactions from "../../store/actions/index";
 import { connect } from "react-redux";
-
-
 
 class BurgerBuilder extends Component {
   // constructor(props){
@@ -45,9 +43,8 @@ class BurgerBuilder extends Component {
       .reduce((sum, el) => {
         return sum + el;
       }, 0);
-  return sum > 0;
+    return sum > 0;
   }
- 
 
   purchaseHandler = () => {
     this.setState({ purchasing: true });
@@ -58,7 +55,6 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-   
     this.props.history.push("/checkout");
 
     // alert("Continued!!");
@@ -84,8 +80,12 @@ class BurgerBuilder extends Component {
         <Aux>
           <Burger ingredients={this.props.ings} />
           <BuildControls
-            ingredientAdded={(ingName) => this.props.addIngredientHandler(ingName)}
-            ingredientRemoved={(ingName) => this.props.removeIngredientHandler(ingName)}
+            ingredientAdded={(ingName) =>
+              this.props.addIngredientHandler(ingName)
+            }
+            ingredientRemoved={(ingName) =>
+              this.props.removeIngredientHandler(ingName)
+            }
             disabled={disabledInfo}
             price={this.props.price}
             purchasable={this.updatePurchaseState(this.props.ings)}
@@ -123,15 +123,19 @@ class BurgerBuilder extends Component {
 const mapStateToProps = (state) => {
   return {
     ings: state.ingredients,
-    price : state.totalPrice
+    price: state.totalPrice,
   };
 };
 
 const mapActionsToProps = (dispatch) => {
   return {
-    addIngredientHandler : (ingName) => dispatch({ type : actionTypes.ADD_INGREDIENT, ingredientName : ingName}),
-    removeIngredientHandler : (ingName) => dispatch({ type : actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
-
+    addIngredientHandler: (ingName) =>
+      dispatch(burgerBuilderactions.addIngredients(ingName)),
+    removeIngredientHandler: (ingName) =>
+      dispatch(burgerBuilderactions.removeIngredients(ingName)),
   };
 };
-export default connect(mapStateToProps,mapActionsToProps)(withErrorHandler(BurgerBuilder, axios));
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withErrorHandler(BurgerBuilder, axios));
