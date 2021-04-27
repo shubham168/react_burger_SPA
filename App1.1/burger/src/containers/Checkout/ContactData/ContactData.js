@@ -4,6 +4,7 @@ import Button from "../../../Component/UI/Button/Button";
 import Spinner from "../../../Component/UI/Spinner/Spinner";
 import classes from "./ContactData.module.css";
 import Input from "../../../Component/UI/Input/Input";
+import { connect } from "react-redux";
 class ContactData extends Component {
   state = {
     orderForm: {
@@ -94,7 +95,7 @@ class ContactData extends Component {
 
   orderHandler = (event) => {
     event.preventDefault();
-    console.log(this.props.ingredients);
+    console.log(this.props.ings);
     console.log(this.props.price);
     const formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
@@ -199,4 +200,11 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = (state) => {
+  return {
+    ings: state.ingredients,
+    price : state.totalPrice
+  };
+};
+
+export default connect(mapStateToProps) (ContactData);
