@@ -9,11 +9,14 @@ import reportWebVitals from "./reportWebVitals";
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import orderReducer from "./store/reducers/order";
+import authReducer from "./store/reducers/auth";
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilderReducer,
   order: orderReducer,
+  auth : authReducer,
 });
 const store = createStore(
   rootReducer,
