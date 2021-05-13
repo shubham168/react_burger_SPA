@@ -9,7 +9,7 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 import axios from "../../axios_orders";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
 class BurgerBuilder extends Component {
   // constructor(props){
