@@ -61,7 +61,6 @@ export const fetchOrdersStart = () => {
 };
 
 export const fetchOrders = (token,userId) => {
-  console.log(token + "order.js actions ");
   return (dispatch) => {
     dispatch(fetchOrdersStart());
     const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="'+userId+'"';

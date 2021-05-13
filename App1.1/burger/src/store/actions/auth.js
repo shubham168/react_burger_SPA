@@ -49,7 +49,6 @@ export const auth = (email, password, isSignup) => {
         dispatch(checkAuthTimeout(res.data.expiresIn));
       })
       .catch((err) => {
-        console.log(err.response.data.error);
         dispatch(authFail(err.response.data.error));
       });
   };
@@ -87,11 +86,12 @@ export const authCheckState = () => {
       if (expirationDate <= new Date()) {
         dispatch(logout());
       } else {
-        
         const userId = localStorage.getItem("userId");
         dispatch(authSuccess(token, userId));
         dispatch(
-          checkAuthTimeout( (expirationDate.getTime() - new Date().getTime()) /1000 )
+          checkAuthTimeout(
+            (expirationDate.getTime() - new Date().getTime()) / 1000
+          )
         );
       }
     }
