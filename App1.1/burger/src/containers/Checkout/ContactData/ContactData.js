@@ -7,6 +7,7 @@ import Input from "../../../Component/UI/Input/Input";
 import { connect } from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/order";
+import {updateObject} from "../../../shared/utility";
 class ContactData extends Component {
   state = {
     orderForm: {
@@ -101,16 +102,15 @@ class ContactData extends Component {
     console.log(this.props.price);
     const formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
-      formData[formElementIdentifier] = this.state.orderForm[
-        formElementIdentifier
-      ].value;
+      formData[formElementIdentifier] =
+        this.state.orderForm[formElementIdentifier].value;
     }
     this.setState({ loading: true });
     const order = {
       ingredients: this.props.ings,
       price: this.props.price,
       orderData: formData,
-      userId : this.props.userId,
+      userId: this.props.userId,
     };
     this.props.onOrderBurger(order, this.props.token);
   };
@@ -133,19 +133,20 @@ class ContactData extends Component {
   }
 
   inputChangedHandler = (event, inputIdentifier) => {
-    const updatedOrderForm = {
-      ...this.state.orderForm,
-    };
-    const updatedFormElement = {
-      ...updatedOrderForm[inputIdentifier],
-    };
-    updatedFormElement.value = event.target.value;
-    updatedFormElement.valid = this.checkValidity(
-      updatedFormElement.value,
-      updatedFormElement.validation
+    const updatedFormElement = updateObject(
+      this.state.orderForm[inputIdentifier],
+      {
+        value: event.target.value,
+        valid: this.checkValidity(
+          event.target.value,
+          this.state.orderForm[inputIdentifier].validation
+        ),
+        touched: true,
+      }
     );
-    updatedFormElement.touched = true;
-    updatedOrderForm[inputIdentifier] = updatedFormElement;
+    const updatedOrderForm = updateObject(this.state.orderForm, {
+      [inputIdentifier]: updatedFormElement,
+    });
 
     let formIsValid = true;
     for (let inputIdentifier in updatedOrderForm) {
@@ -200,8 +201,8 @@ const mapStateToProps = (state) => {
     price: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
     token: state.auth.idToken,
-    userId : state.auth.userId,
-    };
+    userId: state.auth.userId,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

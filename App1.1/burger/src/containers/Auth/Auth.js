@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import Spinner from "../../Component/UI/Spinner/Spinner";
 import * as actions from "../../store/actions/index";
 import { Redirect } from "react-router-dom";
+import { updateObject } from "../../shared/utility";
 
 class Auth extends Component {
   state = {
@@ -42,7 +43,7 @@ class Auth extends Component {
     isSignup: true,
   };
   componentDidMount() {
-    if(!this.props.buildingBurger && this.props.authRedirectPath !== '/'){
+    if (!this.props.buildingBurger && this.props.authRedirectPath !== "/") {
       this.props.onSetAuthRedirectPath();
     }
   }
@@ -52,7 +53,8 @@ class Auth extends Component {
       isValid = value.trim() !== "";
     }
     if (rules.isEmail) {
-      const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      const pattern =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       isValid = pattern.test(value) && isValid;
     }
     if (rules.isNumeric) {
@@ -72,18 +74,16 @@ class Auth extends Component {
   }
 
   inputChangedHandler = (event, controlName) => {
-    const updatedControls = {
-      ...this.state.controls,
-      [controlName]: {
-        ...this.state.controls[controlName],
+    const updatedControls = updateObject(this.state.controls, {
+      [controlName]: updateObject(this.state.controls[controlName], {
         value: event.target.value,
         valid: this.checkValidity(
           event.target.value,
           this.state.controls[controlName].validation
         ),
         touched: true,
-      },
-    };
+      }),
+    });
     this.setState({ controls: updatedControls });
   };
 
