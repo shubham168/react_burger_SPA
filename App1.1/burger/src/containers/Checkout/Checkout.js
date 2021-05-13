@@ -4,7 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 import CheckoutSummary from "../../Component/Order/CheckoutSummary/CheckoutSummary";
 import classes from "../../Component/Order/CheckoutSummary/CheckoutSummary.module.css";
 import ContactData from "./ContactData/ContactData";
-import * as actions from "../../store/actions/index";
+// import * as actions from "../../store/actions/index";
 
 class Checkout extends Component {
 
