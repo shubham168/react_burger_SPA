@@ -5,7 +5,13 @@ Burger Builder is a website for ordering and creating a
 burger. Has sign-in and session login features. A solo side project completed within 3 weeks.
 
 ![Burger-img](https://github.com/shubham168/react_burger_SPA/blob/main/burger-builder-lg.PNG)
-![Burger-img](https://github.com/shubham168/react_burger_SPA/blob/main/burger-builder.PNG)
+
+<p align="center">
+ 
+  <img alt="Burger-img" src="https://github.com/shubham168/react_burger_SPA/blob/main/burger-builder.PNG">
+
+</p>
+
 
 ## Demo
 
